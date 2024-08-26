@@ -35,3 +35,11 @@ def schaffer_no_2(x1, x2):
     return 0.5 + ((np.sin((x1**2 - x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
 
 schaffer2 = BoundedFunction("Schaffer No. 2", schaffer_no_2, (-100, 100), (-10, 10), ((0, 0), 0))
+
+def _ripple25(x1, x2):
+    ans = 0
+    for x in [x1, x2]:
+        ans += -np.exp(-2 * np.log(2) * ((x - 0.1) / 0.8)**2) * (np.sin(5 * np.pi * x))**6
+    return ans
+
+ripple25 = BoundedFunction("Ripple 25", _ripple25, (0, 1), (0, 1), ((0.1, 0.1), -2))
