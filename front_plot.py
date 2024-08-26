@@ -14,7 +14,7 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     # Compute the function values
     Z = bf.f(X, Y)
     fig, ax = plt.subplots(figsize=(10, 10))
-    contour = ax.contourf(X,Y,Z, levels=50, cmap = "plasma")
+    contour = ax.contourf(X,Y,Z, levels=10, cmap = "plasma")
     scatter = ax.scatter([], [] , color='r', s = 10, zorder = 10)
     ax.set_title(f"Interactive Plot of Algorithm {alg.name} with Function {bf.name}")
     ax.set_xlabel('X-axis')
