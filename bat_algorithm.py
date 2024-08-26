@@ -7,7 +7,7 @@ class Bat(Alg):
         super().__init__("Bat Algorithm")
         self.number_bats = number_bats
         self.freq_min = 0
-        self.freq_max = 1
+        self.freq_max = 5
         self.Loudness = 0.5
         self.Pulse_rate = 0.5
         self.gamma = 0.5
@@ -42,7 +42,7 @@ class Bat(Alg):
         for i in range(self.number_bats):
             self.frequency[i] = np.random.uniform(self.freq_min, self.freq_max)
             v1_x = (self.best_pos[0] - self.bats[i][0]) * self.frequency[i]
-            v1_y = (self.best_pos[0] - self.bats[i][1]) * self.frequency[i]
+            v1_y = (self.best_pos[1] - self.bats[i][1]) * self.frequency[i]
             self.velocity[i] = (v1_x, v1_y) 
 
             tup = self.velocity[i]
