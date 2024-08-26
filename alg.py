@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
+from bounded_function import BoundedFunction
+
 class Alg(ABC):
     def __init__(self, name: str):
         self.name = name
@@ -8,14 +10,14 @@ class Alg(ABC):
         self.x2_range = (-1, 1)
 
     @abstractmethod
-    def get_points() -> list[tuple[float, float]]:
+    def get_points(self) -> list[tuple[float, float]]:
         """
         return all the points / animals in the grid.
         """
         pass
 
     @abstractmethod
-    def update_points():
+    def update_points(self, bf : BoundedFunction):
         """
         perform one iteration step
         """
@@ -44,7 +46,7 @@ class Example(Alg):
     def get_points(self) -> list[tuple[float, float]]:
         return self.points
 
-    def update_points(self):
+    def update_points(self, bf : BoundedFunction):
         self.points = [
             (
                 np.random.uniform(self.x1_range[0], self.x1_range[1]),

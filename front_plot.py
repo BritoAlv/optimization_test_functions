@@ -13,7 +13,7 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     X, Y = np.meshgrid(x, y)
     # Compute the function values
     Z = bf.f(X, Y)
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(10, 10))
     contour = ax.contourf(X,Y,Z, levels=50, cmap = "plasma")
     scatter = ax.scatter([], [] , color='r', s = 10, zorder = 10)
     ax.set_title(f"Interactive Plot of Algorithm {alg.name} with Function {bf.name}")
@@ -25,7 +25,7 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     # Function to update scatter data
     def update_scatter():
         global scatter_data
-        alg.update_points()
+        alg.update_points(bf)
         points = alg.get_points()
         scatter_data = np.array([[p[0] for p in points], [p[1] for p in points]])
         scatter.set_offsets(scatter_data.T)
