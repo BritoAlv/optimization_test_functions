@@ -29,6 +29,7 @@ def front_plot( alg : Alg, bf : BoundedFunction):
         points = alg.get_points()
         scatter_data = np.array([[p[0] for p in points], [p[1] for p in points]])
         scatter.set_offsets(scatter_data.T)
+        alg.log_state(bf)
 
     # Button callback function
     def button_callback(event):

@@ -8,6 +8,7 @@ class Alg(ABC):
         self.name = name
         self.x1_range = (-1, 1)
         self.x2_range = (-1, 1)
+        self.best_pos = None
 
     @abstractmethod
     def get_points(self) -> list[tuple[float, float]]:
@@ -22,6 +23,9 @@ class Alg(ABC):
         perform one iteration step
         """
         pass
+
+    def log_state(self, bf : BoundedFunction):
+        print(f"Current best is {bf.f(self.best_pos[0], self.best_pos[1])} at {self.best_pos} while real is {bf.glob_min[1]} at ({bf.glob_min[0][0]}, {bf.glob_min[0][1]})")
 
     def set_range(self, x1_range: tuple[float, float], x2_range: tuple[float, float]):
         """

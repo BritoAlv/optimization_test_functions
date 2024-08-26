@@ -7,9 +7,9 @@ class ParticleSwarm(Alg):
     def __init__(self, number_particles=50):
         super().__init__("Particle Swarm")
         self.number_particles = number_particles
-        self.inertia = 0.2
-        self.accel_personal = 0.01
-        self.accel_social = 0.05
+        self.inertia = 0.8
+        self.accel_personal = 0.1
+        self.accel_social = 0.1
         self.particles = [
             (
                 np.random.uniform(self.x1_range[0], self.x1_range[1]),
@@ -21,7 +21,6 @@ class ParticleSwarm(Alg):
         self.particles_best_position = self.particles.copy()
         self.particle_best_fitness : None | list[float] = None
         self.best_value : None | float = None
-        self.best_pos : None | tuple[float, float] = None
         self.velocity = [(float(0), float(0)) for _ in range(self.number_particles)]
 
     def get_points(self) -> list[tuple[float, float]]:
@@ -60,10 +59,7 @@ class ParticleSwarm(Alg):
                 self.best_value = self.fitness[i]
                 self.best_pos = self.particles[i]
 
-        print(f"Current best is {self.best_value} at {self.best_pos}")
-
-    
-            
+                
     def update_particle_pos(self, index : int, new_vel : tuple[float, float]):
         x = self.particles[index][0]
         y = self.particles[index][1]
