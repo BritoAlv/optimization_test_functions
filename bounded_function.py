@@ -30,9 +30,8 @@ def _beale(x1, x2):
     return (1.5 - x1 + x1*x2)**2 + (2.25 - x1 + x1*x2**2)**2 + (2.625 - x1 + x1*x2**3)**2
 
 beale = BoundedFunction("Beale", _beale, (-4.5, 4.5), (-4.5, 4.5), ((3, 0.5), 0))
-beale = BoundedFunction("Beale", _beale, (-4.5, 4.5), (-4.5, 4.5))
 
 def schaffer_no_2(x1, x2):
     return 0.5 + ((np.sin((x1**2 - x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
 
-schaffer2 = BoundedFunction("Schaffer No. 2", schaffer_no_2, (-100, 100), (-100, 100))
+schaffer2 = BoundedFunction("Schaffer No. 2", schaffer_no_2, (-100, 100), (-100, 100), ((0, 0), 0))

@@ -142,3 +142,4 @@ class SFLA(Alg):
         self.population = sorted(self.population, key= lambda frog: self.objective_function(frog))
 
         self.global_best = self.population[0]
+        self.best_pos = self.global_best
