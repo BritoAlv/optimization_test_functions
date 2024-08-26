@@ -26,7 +26,6 @@ class Bat(Alg):
 
         self.fitness: None | list[float] = None
         self.best_value : None | float = None
-        self.best_pos : None | tuple[float, float] = None
 
     def get_points(self) -> list[tuple[float, float]]:
         return self.bats
@@ -61,8 +60,6 @@ class Bat(Alg):
                 if self.fitness[i] < self.best_value:
                     self.best_value = self.fitness[i]
                     self.best_pos = new_pos
-
-        print(f"Current best is {self.best_value} at {self.best_pos}")
 
     def update_bat_pos(self, index : int, new_vel : tuple[float, float]) -> tuple[float, float]:
         x = self.bats[index][0]
