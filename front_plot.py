@@ -16,7 +16,7 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     fig, ax = plt.subplots(figsize=(8, 8))
     contour = ax.contourf(X,Y,Z, levels=50, cmap = "plasma")
     scatter = ax.scatter([], [] , color='r', s = 10, zorder = 10)
-    ax.set_title('Interactive Plot')
+    ax.set_title(f"Interactive Plot of Algorithm {alg.name} with Function {bf.name}")
     ax.set_xlabel('X-axis')
     ax.set_ylabel('Y-axis')
     colorbar = plt.colorbar(contour, ax=ax)
@@ -40,8 +40,6 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     button = Button(ax_button, 'Update Scatter')
     button.on_clicked(button_callback)
 
-    # Animation setup
-    ani = FuncAnimation(fig, lambda i: None, interval=500, blit=False)
 
     # Show the plot
     plt.show()

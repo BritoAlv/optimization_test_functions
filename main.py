@@ -1,5 +1,5 @@
 from alg import Example
 from front_plot import *
-from bounded_function import chapter
+from bounded_function import rotated_elipse2
 
-front_plot(Example(), chapter)
+front_plot(Example(), rotated_elipse2)
