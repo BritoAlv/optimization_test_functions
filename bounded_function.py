@@ -16,11 +16,16 @@ def _ch(x1, x2):
     den = 1 + 0.001*(x1**2 + x2**2)**2
     return 0.5 + num/den
 
-chapter3 = BoundedFunction("Chapter3", _ch, (-2, 2), (-2, 2))
+scahffer3 = BoundedFunction("Scahffer3", _ch, (-2, 2), (-2, 2))
 
 rotated_elipse2 = BoundedFunction("Rotated Elipse 2", lambda x, y : x**2 - x*y + y**2, (-500, 500), (-500, 500))
 
 def _ackley(x1, x2):
     return -20*np.exp(-0.2*np.sqrt(0.5*(x1**2 + x2**2))) - np.exp(0.5*(np.cos(2*np.pi*x1) + np.cos(2*np.pi*x2))) + np.e + 20
 
-ackley = BoundedFunction("Ackley", _ackley, (-5, 5), (-5, 5))
+ackley = BoundedFunction("Ackley", _ackley, (-5, 5), (-5, 5)) 
+
+def _beale(x1, x2):
+    return (1.5 - x1 + x1*x2)**2 + (2.25 - x1 + x1*x2**2)**2 + (2.625 - x1 + x1*x2**3)**2
+
+beale = BoundedFunction("Beale", _beale, (-4.5, 4.5), (-4.5, 4.5))

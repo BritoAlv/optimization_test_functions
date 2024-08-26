@@ -18,7 +18,7 @@ class ParticleSwarm(Alg):
             for _ in range(self.number_particles)
         ]
         self.fitness: None | list[float] = None
-        self.particles_best_position = self.particles
+        self.particles_best_position = self.particles.copy()
         self.particle_best_fitness : None | list[float] = None
         self.best_value : None | float = None
         self.best_pos : None | tuple[float, float] = None
