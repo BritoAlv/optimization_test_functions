@@ -9,7 +9,6 @@ def front_plot( alg : Alg, bf : BoundedFunction):
     # Initial setup
     x = np.linspace(bf.range_x1[0], bf.range_x1[1])
     y = np.linspace(bf.range_x1[0], bf.range_x2[1])
-    alg.set_range(bf.range_x1, bf.range_x2)
     X, Y = np.meshgrid(x, y)
     # Compute the function values
     Z = bf.f(X, Y)

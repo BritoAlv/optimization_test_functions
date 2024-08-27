@@ -2,12 +2,13 @@ from typing import Callable
 import numpy as np
 
 class BoundedFunction:
-    def __init__(self, name : str, f : Callable[[float, float], float] , range_x1 : tuple[float, float], range_x2 : tuple[float, float], glob_min : tuple[tuple[float, float], float]) -> None:
+    def __init__(self, name : str, f : Callable[[float, float], float] , range_x1 : tuple[float, float], range_x2 : tuple[float, float], glob_min : tuple[tuple[float, float], float], gradient : None | tuple[Callable[[float, float], float], Callable[[float, float], float]] = None) -> None:
         self.name = name
         self.f = f
         self.range_x1 = range_x1
         self.range_x2 = range_x2
         self.glob_min = glob_min
+        self.gradient = gradient
 
     def __call__(self, point : tuple[float, float]) -> float:
         return self.f(point[0], point[1])
@@ -43,3 +44,15 @@ def _ripple25(x1, x2):
     return ans
 
 ripple25 = BoundedFunction("Ripple 25", _ripple25, (0, 1), (0, 1), ((0.1, 0.1), -2))
+
+def _booth(x1, x2):
+    return (x1 + 2*x2 - 7)**2 + (2*x1 + x2 - 5)**2
+
+def gradient_booth_x(x1, x2):
+    return 10*x1 + 8*x2 - 34
+
+def gradient_booth_y(x1, x2):
+    return 8*x1 + 10*x2 - 38
+    
+
+booth = BoundedFunction("Booth", _booth, (-10, 10), (-10, 10), ((1,3), 0), (gradient_booth_x, gradient_booth_y))

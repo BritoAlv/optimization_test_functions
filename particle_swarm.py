@@ -4,8 +4,8 @@ from bounded_function import BoundedFunction
 
 
 class ParticleSwarm(Alg):
-    def __init__(self, number_particles=50):
-        super().__init__("Particle Swarm")
+    def __init__(self, number_particles=50, x1_range = (-1, 1), x2_range = (-1, 1)):
+        super().__init__("Particle Swarm", x1_range, x2_range)
         self.number_particles = number_particles
         self.inertia = 0.8
         self.accel_personal = 0.1

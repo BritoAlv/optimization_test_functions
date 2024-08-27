@@ -3,8 +3,8 @@ from alg import Alg
 from bounded_function import BoundedFunction
 
 class Bat(Alg):
-    def __init__(self, number_bats = 40):
-        super().__init__("Bat Algorithm")
+    def __init__(self, number_bats = 40, x1_range = (-1, 1), x2_range = (-1, 1)):
+        super().__init__("Bat Algorithm", x1_range, x2_range)
         self.number_bats = number_bats
         self.freq_min = 0
         self.freq_max = 5
