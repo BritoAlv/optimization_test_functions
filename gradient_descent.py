@@ -29,7 +29,7 @@ class GradientDescent(Alg):
         for i in range(self.number_points):
             pos_x = self.points[i][0]
             pos_y = self.points[i][1]
-            self.update_pos(i, (self.step_size * bf.gradient[0](pos_x, pos_y), self.step_size * bf.gradient[1](pos_x, pos_y)))
+            self.update_pos(i, (-self.step_size * bf.gradient[0](pos_x, pos_y), -self.step_size * bf.gradient[1](pos_x, pos_y)))
 
     def update_pos(self, index : int, new_vel : tuple[float, float]):
         x = self.points[index][0]
