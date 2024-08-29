@@ -79,3 +79,12 @@ class Bat(Alg):
             y = self.x2_range[1]
 
         return (x, y)
+
+    def initialize_points(self):
+        self.bats = [
+            (
+                np.random.uniform(self.x1_range[0], self.x1_range[1]),
+                np.random.uniform(self.x2_range[0], self.x2_range[1]),
+            )
+            for _ in range(self.number_bats)
+        ]

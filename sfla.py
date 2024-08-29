@@ -143,3 +143,6 @@ class SFLA(Alg):
 
         self.global_best = self.population[0]
         self.best_pos = self.global_best
+
+    def initialize_points(self):
+        pass

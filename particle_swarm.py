@@ -78,3 +78,12 @@ class ParticleSwarm(Alg):
             y = self.x2_range[1]
 
         self.particles[index] = (x, y)
+
+    def initialize_points(self):
+        self.particles = [
+            (
+                np.random.uniform(self.x1_range[0], self.x1_range[1]),
+                np.random.uniform(self.x2_range[0], self.x2_range[1]),
+            )
+            for _ in range(self.number_particles)
+        ]

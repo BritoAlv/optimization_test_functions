@@ -56,3 +56,8 @@ def gradient_booth_y(x1, x2):
     
 
 booth = BoundedFunction("Booth", _booth, (-10, 10), (-10, 10), ((1,3), 0), (gradient_booth_x, gradient_booth_y))
+
+def _bukin(x1, x2):
+    return 100 * np.sqrt(abs(x2 - 0.01 * x1**2)) + 0.01 * abs(x1 + 10)
+
+bukin = BoundedFunction("Bukin", _bukin, (-15, -5), (-3, 3), ((-10, 1), 0))

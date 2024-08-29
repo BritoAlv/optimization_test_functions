@@ -24,4 +24,8 @@ class Alg(ABC):
         pass
 
     def log_state(self, bf : BoundedFunction):
-        print(f"Current best is {bf.f(self.best_pos[0], self.best_pos[1])} at {self.best_pos} while real is {bf.glob_min[1]} at ({bf.glob_min[0][0]}, {bf.glob_min[0][1]})")
+        print(f"From {self.name}: Current best is {round(bf.f(self.best_pos[0], self.best_pos[1]), 4)} at {self.best_pos} while real is {bf.glob_min[1]} at ({bf.glob_min[0][0]}, {bf.glob_min[0][1]})")
+
+    @abstractmethod
+    def initialize_points(self):
+        pass
