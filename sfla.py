@@ -126,7 +126,7 @@ class SFLA(Alg):
         # Step 4: Memetic evolution with each memeplex
         threads : list[Thread] = []
         for memeplex in memeplexes.values():
-            thread = Thread(target=self.evolve(memeplexes, index, memeplex, self.global_best))
+            thread = Thread(target=self.evolve, args=(memeplexes, index, memeplex, self.global_best))
             threads.append(thread)
             thread.start()
             # self.evolve(memeplexes, index, memeplex, self.global_best)
