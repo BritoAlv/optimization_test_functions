@@ -80,7 +80,7 @@ class SFLA(Alg):
     N : int 
         Number of iterations per memeplex.
     q : int
-        Size of memeplexes.
+        Size of submemeplexes.
     S : float 
         Maximum step-size when improving worst local frog position.
     bounds : tuple[float, float]
@@ -146,3 +146,88 @@ class SFLA(Alg):
 
     def initialize_points(self):
         pass
+
+def sfla(objective_function, m : int, n : int, dimension : int, N : int, q : int, S : float, bounds : tuple[float, float] = (-100, 100), stability_total : int = 10, stability_threshold : float = 0.0001):
+    '''
+    Shuffled frog leaping algorithm. A memetic meta-heuristic algorithm for function optimization.
+
+    Parameters
+    ----------
+    objective_function : function
+        Objective function.
+    m : int 
+        Number of memeplexes (partitions of the population).
+    n : int 
+        Number of frogs per memeplex.
+    dimension : int 
+        Number of variables in the objective function (known as meme-size).
+    N : int 
+        Number of iterations per memeplex.
+    q : int
+        Size of submemeplexes.
+    S : float 
+        Maximum step-size when improving worst local frog position.
+    bounds : tuple[float, float]
+        Objective functions's variables bounds
+    stability_total : int
+        Number of iteration maintaining the global-best unchanged
+    stability_threshold : float
+        Threshold to consider between the global-best and a candidate
+
+    Returns
+    -------
+    result : [list[float], float]
+        A tuple containing the vector when the global minimum was found and the global minimum
+    '''
+    evolve = _evolve_builder(objective_function, q, N, S, bounds)
+    
+    F = m * n # Population size
+    population : list[list[float]] = []
+    
+    # Step 1: Generate virtual frogs population
+    for _ in range(F):
+        frog = [uniform(bounds[0], bounds[1]) for _ in range(dimension)]
+        population.append(frog)
+
+    # Step 2: Rank frogs
+    population = sorted(population, key = lambda frog: objective_function(frog))
+    stability_count = 0
+    global_best = population[0]
+
+    while stability_count < stability_total:
+        # Step 3: Partition frogs into memeplexes
+        memeplexes : dict[int, list[list[float]]] = {}
+
+        for i, frog in enumerate(population):
+            index = i % m
+            if index not in memeplexes:
+                memeplexes[index] = [frog]
+            else:
+                memeplexes[index].append(frog)
+
+        # Step 4: Memetic evolution with each memeplex
+        threads : list[Thread] = []
+        for memeplex in memeplexes.values():
+            thread = Thread(target=evolve, args=(memeplexes, index, memeplex, global_best))
+            threads.append(thread)
+            thread.start()
+            # self.evolve(memeplexes, index, memeplex, self.global_best)
+
+        for thread in threads:
+            thread.join()
+
+        # Step 5: Shuffle memeplexes
+        population = []
+        for memeplex in memeplexes.values():
+            population += memeplex
+
+        population = sorted(population, key= lambda frog: objective_function(frog))
+
+        # Step 6: Check stability for convergence
+        if abs(objective_function(global_best) - objective_function(population[0])) < stability_threshold:
+            stability_count += 1
+        else:
+            global_best = population[0]
+            stability_count = 0
+
+    return population[0], objective_function(population[0])
