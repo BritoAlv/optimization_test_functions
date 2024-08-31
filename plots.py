@@ -2,7 +2,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
-from matplotlib.animation import FuncAnimation
+import matplotlib.patches as mpatches
 from bounded_function import BoundedFunction
 from alg import Alg
 
@@ -20,9 +20,7 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
     X, Y = np.meshgrid(x, y)
     # Compute the function values
     Z = bf.f(X, Y)
-    fig, ax = plt.subplots(
-        figsize= (10, 10)
-    )
+    fig, ax = plt.subplots(figsize=(10, 10))
     contour = ax.contourf(X, Y, Z, levels=10, cmap="plasma")
     colours = random.sample(["b", "g", "r", "c", "m", "y", "k", "w"], k=len(algs))
     scatters = [
@@ -33,9 +31,11 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
     ax.set_ylabel("Y-axis")
     colorbar = plt.colorbar(contour, ax=ax)
     colorbar.set_label("Function Value")
-    """
-    Pending to implement add a legend to this.
-    """
+
+    legend_handles = []
+    for i, color in enumerate(colours):
+        patch = mpatches.Patch(color=color, label=f"{algs[i].name}")
+        legend_handles.append(patch)
 
     # Function to update scatter data
     def update_scatter():
@@ -44,8 +44,9 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
             points = alg.get_points()
             scatter_data = np.array([[p[0] for p in points], [p[1] for p in points]])
             scatters[i].set_offsets(scatter_data.T)
-            alg.log_state(bf)
-
+            alg.log_state(bf)    
+    plt.legend(handles=legend_handles)
+    
     # Button callback function
     def button_callback(event):
         update_scatter()
@@ -53,6 +54,7 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
 
     # Add button widget
     ax_button = plt.axes([0.7, 0.05, 0.2, 0.075])
+
     button = Button(ax_button, "Update Scatter")
     button.on_clicked(button_callback)
     # Show the plot
