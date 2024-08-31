@@ -1,6 +1,6 @@
-from bat_algorithm import Bat
-from plots import *
-from bounded_function import (
+from plot.bat_algorithm import Bat
+from plot.plots import *
+from plot.bounded_function import (
     rotated_elipse2,
     scahffer3,
     ackley,
@@ -10,9 +10,9 @@ from bounded_function import (
     booth,
     bukin,
 )
-from gradient_descent import GradientDescent
-from particle_swarm import ParticleSwarm
-from sfla import SFLA
+from plot.gradient_descent import GradientDescent
+from plot.particle_swarm import ParticleSwarm
+from plot.sfla import SFLA
 
 """
 call this function passing an Algoritm and a Function to Test.

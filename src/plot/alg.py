@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from bounded_function import BoundedFunction
+from plot.bounded_function import BoundedFunction
 
 class Alg(ABC):
     def __init__(self, name: str, x1_range = (-1, 1), x2_range = (-1, 1)):
