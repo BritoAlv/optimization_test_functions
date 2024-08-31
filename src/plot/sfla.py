@@ -1,7 +1,7 @@
 from random import uniform
 from threading import Thread
-from alg import Alg
-from bounded_function import BoundedFunction
+from plot.alg import Alg
+from plot.bounded_function import BoundedFunction
 
 def _triangular(j, n):
     return 2 * (n + 1 - j) / n * (n + 1)

@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 from matplotlib.animation import FuncAnimation
-from bounded_function import BoundedFunction
-from alg import Alg
+from plot.bounded_function import BoundedFunction
+from plot.alg import Alg
 
 
 def one_plot(algs: list[Alg], bf: BoundedFunction):

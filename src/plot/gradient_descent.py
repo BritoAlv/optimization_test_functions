@@ -1,6 +1,6 @@
 import numpy as np
-from alg import Alg
-from bounded_function import BoundedFunction
+from plot.alg import Alg
+from plot.bounded_function import BoundedFunction
 
 
 class GradientDescent(Alg):

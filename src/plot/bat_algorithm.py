@@ -1,6 +1,6 @@
 import numpy as np
-from alg import Alg
-from bounded_function import BoundedFunction
+from plot.alg import Alg
+from plot.bounded_function import BoundedFunction
 
 class Bat(Alg):
     def __init__(self, number_bats = 40, x1_range = (-1, 1), x2_range = (-1, 1)):
