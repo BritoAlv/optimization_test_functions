@@ -32,6 +32,11 @@ def _beale(x1, x2):
 
 beale = BoundedFunction("Beale", _beale, (-4.5, 4.5), (-4.5, 4.5), ((3, 0.5), 0))
 
+def schaffer_no_1(x1, x2):
+    return 0.5 + ((np.sin((x1**2 + x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
+
+schaffer1 = BoundedFunction("Schaffer No. 1", schaffer_no_1, (-100, 100), (-100, 100), ((0, 0), 0))
+
 def schaffer_no_2(x1, x2):
     return 0.5 + ((np.sin((x1**2 - x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
 
@@ -62,15 +67,3 @@ def _bukin(x1, x2):
 
 bukin = BoundedFunction("Bukin", _bukin, (-15, -5), (-3, 3), ((-10, 1), 0))
 
-
-def up(x):
-    return np.sin((x[0]**2 + x[1]**2)**2) ** 2 - 0.5
-
-def lower(x):
-    return 1 + 0.001 * ((x[0]**2 + x[1]**2)**2)
-
-def _f_112(x1, x2):
-    x = [x1, x2]
-    return 0.5 + up(x) / lower(x)
-
-f_112 = BoundedFunction("Function 122", _f_112, (-15, -5), (-3, 3), ((-10, 1), 0))

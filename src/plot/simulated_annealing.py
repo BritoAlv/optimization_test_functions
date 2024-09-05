@@ -15,9 +15,10 @@ class SimulatedAnnealing(Alg):
         self.function_value = None
         self.current_solution = None
         self.bounds = None
+        self.point = []
 
     def get_points(self) -> list[tuple[float, float]]:
-        return [self.best_solution]
+        return self.point
 
     def update_points(self, f : BoundedFunction):
         best_f = f(self.current_solution)
@@ -34,6 +35,7 @@ class SimulatedAnnealing(Alg):
             if f(self.x) < best_f:
                 self.best_solution = self.x.copy()
                 best_f = f(self.x)
+                self.point.append(self.x)
         else:
             # Accept with probability based on temperature
             probability = np.exp(-delta_f / self.temperature)
@@ -42,6 +44,7 @@ class SimulatedAnnealing(Alg):
                 if f(self.x) < best_f:
                     self.best_solution = self.x.copy()
                     best_f = f(self.x)
+                    self.point.append(self.x)
         
         # Update temperature
         self.temperature *= self.cooling_rate  # Cooling schedule
@@ -50,7 +53,7 @@ class SimulatedAnnealing(Alg):
  
     def initialize_points(self):
         dimensions = 2
-        self.bounds = np.array([[-10, 10]] * dimensions)
+        self.bounds = np.array([(-100, 100), (-100, 100)])
         x = np.array([np.random.uniform(b[0], b[1]) for b in self.bounds])
         self.initial_point = x.copy()
         self.best_solution = x.copy() 
