@@ -61,3 +61,16 @@ def _bukin(x1, x2):
     return 100 * np.sqrt(abs(x2 - 0.01 * x1**2)) + 0.01 * abs(x1 + 10)
 
 bukin = BoundedFunction("Bukin", _bukin, (-15, -5), (-3, 3), ((-10, 1), 0))
+
+
+def up(x):
+    return np.sin((x[0]**2 + x[1]**2)**2) ** 2 - 0.5
+
+def lower(x):
+    return 1 + 0.001 * ((x[0]**2 + x[1]**2)**2)
+
+def _f_112(x1, x2):
+    x = [x1, x2]
+    return 0.5 + up(x) / lower(x)
+
+f_112 = BoundedFunction("Function 122", _f_112, (-15, -5), (-3, 3), ((-10, 1), 0))
