@@ -30,7 +30,7 @@ El Shuffled Frog Leaping Algorithm fue originalmente desarrollado para resolver 
 
 Dadas estas características del SFLA, y en particular su efectiva combinación de búsqueda local y global, decidimos seleccionarlo para optimizar las funciones de prueba; las cuales, en su mayoría, poseen más de un mínimo local (el SFLA es capaz de escaparlos para encontrar su camino hacia el mínimo global).
 
-Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del SFLA sobre las funciones de prueba. Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
+Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del SFLA sobre las funciones de prueba ([código fuente](../src/notes/notes_sfla.ipynb)). Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
 
 - **Mishra No. 7**
 
@@ -39,6 +39,10 @@ Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del SFLA
 - **Ripple No. 25**
 
 ![](./images/sfla_ripple_25.png)
+
+- **Schaffer No. 1**
+
+![](./images/sfla_schaffer_1.png)
 
 - **Schaffer No. 2**
 
