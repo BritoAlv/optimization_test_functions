@@ -50,7 +50,7 @@ class Bat(Alg):
                 tup = (tup[0] + np.mean(self.loudness)*np.random.uniform(0, 1), tup[1] + np.mean(self.loudness)*np.random.uniform(0, 1))
 
             new_pos = self.update_bat_pos(i, tup)
-            new_f = bf.f(new_pos[0], new_pos[1])
+            new_f = bf(new_pos)
             if self.fitness[i] > new_f:
                 self.fitness[i] = new_f
                 self.bats[i] = new_pos

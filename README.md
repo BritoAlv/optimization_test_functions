@@ -1,3 +1,17 @@
+# Algoritmos:
+
+Para visualizar distintos algoritmos y obtener estadísticas creamos una interfaz *Alg*, sobre esta implementamos nuestros algoritmos, para ejecutar el proyecto en la carpeta plot: 
+
+```bash
+python3 main.py
+```
+
+# Integrantes:
+    - Alvaro Luis González Brito C-312
+    - Javier Lima García C-312
+    - Maria Fernanda Suaréz González C-311
+    - David Lezcano Becerra C-312
+
 # Python References
 
 To allow python references to work between files, please, change the PYTHONPATH to the path of **src**.

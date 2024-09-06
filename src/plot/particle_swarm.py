@@ -50,7 +50,7 @@ class ParticleSwarm(Alg):
             
             self.update_particle_pos(i, self.velocity[i])
 
-            self.fitness[i] = bf.f(self.particles[i][0], self.particles[i][1])
+            self.fitness[i] = bf(self.particles[i])
             if self.fitness[i] < self.particle_best_fitness[i]:
                 self.particle_best_fitness[i] = self.fitness[i]
                 self.particles_best_position[i] = self.particles[i]
