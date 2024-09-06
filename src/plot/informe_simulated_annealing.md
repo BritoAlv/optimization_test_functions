@@ -14,15 +14,6 @@ El algoritmo de Simulated Annealing es una técnica de optimización inspirada e
 
 6. **Conclusión**: El algoritmo termina cuando la temperatura alcanza un valor mínimo o se supera el número máximo de iteraciones.
 
-
-El Simulated Annealing se utiliza principalmente para resolver problemas de programación no lineal complejos, especialmente aquellos que involucran funciones objetivas complicadas o múltiples restricciones. Sus aplicaciones incluyen:
-
-- Optimización de procesos industriales
-- Diseño de circuitos eléctricos
-- Procesamiento de señales
-- Optimización de rutas en redes
-- Predicción de precios de acciones
-
 Trabajamos sobre la funcion **Schaffer No. 1** y corrimos 20 veces el algoritmo obteniendo los siguientes resultados.
 
 ### Resultados de las 20 ejecuciones:
