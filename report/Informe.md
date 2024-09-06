@@ -1,33 +1,57 @@
 ### Introducción
 
-En este proyecto implementamos algoritmos de optimización para hallar mínimos globales de algunas funciones, algunos están basados en comportamientos de animales en la naturaleza como el *Bat Algorithm* que simula la eco-localización realizada por los murciélagos. Estos algoritmos son de punto fijo, con la abstracción de que en cada iteración tenemos algunos puntos en el dominio de la función, se actualizan la posición de estos puntos, se espera, pero no tiene por qué, que estas posiciones converjan a un mínimo global de la función. La diferencia entre estos algoritmos radica en la forma en que actualizan estos puntos. El reto de estos algoritmos consiste en combinar tanto información global como información local de el espacio de búsqueda.
+En este proyecto implementamos algoritmos de optimización para hallar mínimos globales de algunas funciones, algunos están basados en comportamientos de animales en la naturaleza como el *Bat Algorithm* que simula la eco-localización realizada por los murciélagos. Estos algoritmos son de punto fijo, con la abstracción de que en cada iteración tenemos algunos puntos en el dominio de la función, se actualizan la posición de estos puntos, se espera, pero no tiene por qué, que estas posiciones converjan a un mínimo global de la función. La diferencia entre estos algoritmos radica en la lógica usada para actualizar la posición de los puntos. El reto de estos algoritmos consiste en combinar tanto información global como información local de el espacio de búsqueda.
 
 Un algoritmo que solamente usa información local sobre el espacio de búsqueda es el de *gradient descent*, en el cuál los puntos son actualizados de acuerdo a la dirección opuesta a el gradiente de la función en el punto, usar solamente información local, provoca que los puntos se estanquen en mínimos locales, pero no necesariamente globales.
 
-Para visualizar nuestra implementación, son ploteados los puntos en un *contour* de una función de dos variables en un espacio acotado de búsqueda, además creamos una interfaz para escoger que algoritmo usar, pudiendo usar un algoritmo o dos para ver las diferencias entre ellos.
+Para comprobar el comportamiento de el algoritmo de *Gradient-Descent* usamos la función de *RosenBrock*, en la cual comprobamos que es fácil para el algoritmo encontrar la parábola donde se encuentra el mínimo, pero sin embargo el mínimo es más costoso encontrarlo.
 
-A continuación explicamos en que consiste cada uno de los algoritmos usados:
+![](./images/rosgd.png)
+
+Para visualizar el comportamiento de los algoritmos , Creamos un *contour* de una función de dos variables en un espacio acotado de búsqueda, además creamos una interfaz *Algoritmo* de forma que una implementación que cumpla con esta interfaz pueda ser usada en el plot interactivo, la forma en la que es usado es sencilla, son puntos son ploteados con un color asignado para distinguirlo de los otros, y mediante un botón son actualizadas las posiciones de los puntos. En caso de conocer un mínimo de la función lo marcamos con una $x$ en el gráfico, pero esto puede no significar mucho ya que las funciones pueden tener infinitas posiciones donde se alcanza el mínimo global.
+
+![](./images/o.png)
+
+A continuación explicamos se hará un análisis por separado de algunos de los algoritmos implementados:
 
 #### Particle Swarm Optimization:
 
-En este contexto partícula, ave, punto se refieren a una solución candidate en el espacio de búsqueda. El algoritmo comienza con una población de aves distribuidas uniformemente en el espacio de búsqueda, el movimiento de cada ave está influenciado por su la mejor posición en la que ha estado ( menor valor de la función objetivo ) y la mejor posición de el grupo de aves en general. Esto combina el factor global y el factor local.
+En este contexto partícula, ave, punto se refieren a una solución candidate en el espacio de búsqueda. El algoritmo comienza con una población de aves distribuidas uniformemente en el espacio de búsqueda, el movimiento de cada ave está influenciado por la mejor posición en la que ha estado ( menor valor de la función objetivo ) y la mejor posición de el grupo de aves en general. Esto combina el factor global y el factor local. Además se le añade un factor aleatorio a el movimiento de las aves.
 
-En cada iteración la posición de las partículas es aumentado con el vector de velocidad de esta partícula, inicialmente este vector es 0, en cada iteración se recalcula este vector, se le añade a la posición de la partícula y se repite el proceso.
+En cada iteración la posición de las partículas es aumentado con el vector de velocidad de esta partícula, inicialmente este vector es 0, en cada iteración se recalcula este vector, se le añade a la posición de la partícula y se repite el proceso hasta que por alguna métrica se decida detener.
 
-Para calcular la velocidad de la partícula se calculan tres componentes y se añaden, el algoritmo posee tres parámetros constantes que influencian cada una de estas velocidades, *inercia*, *aceleración personal*, *aceleración social*. Cada uno de estos controla que tanto aporta cada una de las tres velocidades: $i * v$, $a_p * R(0,1) * (G_p - P)$, $a_s * R(0,1) * (G - P)$ a el resultado final.
+Para calcular la velocidad de la partícula se calculan tres componentes y se añaden, el algoritmo posee tres parámetros constantes que influencian cada una de estas velocidades, *inercia*, *aceleración personal*, *aceleración social*. Cada uno de estos controla que tanto aporta cada una de las tres velocidades: $i * v$, $a_p * R(0,1) * (G_p - P)$, $a_s * R(0,1) * (G - P)$ a el resultado final. Donde $i$ es la inercia, $v$ es la velocidad actual de la partícula, $a_p, a_s$ es la aceleración personal y social respectivamente. $R(0, 1)$ es un número al azar entre $0,1$. $G$ es la mejor posición global, $G_p$ es la mejor posición de la partícula y $P$ es la posición de la partícula.
 
-Donde $i$ es la inercia, $v$ es la velocidad actual de la partícula, $a_p, a_s$ es la aceleración personal y social respectivamente. $R(0, 1)$ es un número al azar entre $0,1$. $G$ es la mejor posición global, $G_p$ es la mejor posición de la partícula y $P$ es la posición de la partícula.
+A continuación algunas estadísticas con respecto a la ejecución de este algoritmo con algunas de las funciones ([código fuente](../src/notes/notes_pso.ipynb)) :
 
-A continuación algunas estadísticas con respecto a la ejecución de este algoritmo con algunas de las funciones :
+Particle Swarm Optimization with function Schaffer No. 2 and 100 runs
+|                   |    Promedio |     Mediana |   Desv. Est. |
+|:------------------|------------:|------------:|-------------:|
+| Duración          | 0.117911    | 0.10801     |  0.0328831   |
+| Error c.r. Mínimo | 1.20681e-15 | 0           |  4.67536e-15 |
+| Error c.r. Óptimo | 0.000572421 | 0.000756713 |  0.000516296 |
 
-Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del Particle Swarm Optimization sobre las funciones de prueba ([código fuente](../src/notes/notes_pso.ipynb)). Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
+![](./images/pso_sc1.png)
 
-Podemos ver como los resultados son sensitivos a la semilla inicial utilizada en el caso de la función Ripple No. 25:
+Particle Swarm Optimization with function Schaffer No. 1 and 100 runs
+|                   |    Promedio |     Mediana |   Desv. Est. |
+|:------------------|------------:|------------:|-------------:|
+| Duración          | 0.107815    | 0.100815    |  0.0216473   |
+| Error c.r. Mínimo | 1.27565e-15 | 0           |  6.30023e-15 |
+| Error c.r. Óptimo | 0.000557486 | 0.000681813 |  0.000527658 |
 
-![](./images/pso-ripple1.png)
-![](./images/pso-ripple2.png)
+![](./images/pso_sc2.png)
 
-En el caso de la función Schaffer No 1, observamos estabilidad con respecto a obtener el mínimo, sin embargo la duración promedio requerida varía. Lo que es justificado por la aleatoriedad de la semilla inicial
+Podemos comprobar la eficacia de el algoritmo de Particle Swarm Optimization con la dos funciones anteriores, sin embargo con la función Bukin no es capaz de encontrar el mínimo con la misma eficacia.
+
+Particle Swarm Optimization with function Bukin and 100 runs
+|                   |   Promedio |   Mediana |   Desv. Est. |
+|:------------------|-----------:|----------:|-------------:|
+| Duración          |  0.379757  | 0.307057  |     0.201252 |
+| Error c.r. Mínimo |  0.0373831 | 0.0196273 |     0.05534  |
+| Error c.r. Óptimo |  1.16795   | 1.59538   |     1.18843  |
+
+![](./images/pso_buk.png)
 
 #### Shuffled Frog Leaping Algorithm (*SFLA*)
 
@@ -35,23 +59,84 @@ El Shuffled Frog Leaping Algorithm fue originalmente desarrollado para resolver 
 
 Dadas estas características del SFLA, y en particular su efectiva combinación de búsqueda local y global, decidimos seleccionarlo para optimizar las funciones de prueba; las cuales, en su mayoría, poseen más de un mínimo local (el SFLA es capaz de escaparlos para encontrar su camino hacia el mínimo global).
 
-Los siguientes resultados fueron obtenidos tras realizar 100 ejecuciones del SFLA sobre las funciones de prueba ([código fuente](../src/notes/notes_pso.ipynb)). Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
+Los siguientes resultados fueron obtenidos tras realizar 100 ejecuciones del SFLA sobre las funciones de prueba ([código fuente](../src/notes/notes_sfla.ipynb)). Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana). En el caso de la función *Mishra 7* dado que la documentación carece del punto óptimo para **Mishra No. 7** (depende de los parámetros de la función -D, N-), decidimos en este caso computar el punto óptimo promedio, mediana y desviación estándar, respectivamente.
 
 - **Mishra No. 7**
 
-![](./images/sfla_mishra_7.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Promedio</th>
+      <th>Mediana</th>
+      <th>Desv. Est.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Duración</th>
+      <td>1.782274</td>
+      <td>1.549789</td>
+      <td>0.673887</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Mínimo</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Óptimo</th>
+      <td>[-4.7734454501962045, -7.0083927858275965]</td>
+      <td>[-0.29500609426077473, -3.69811102335341]</td>
+      <td>[13.982009466986847, 24.180827380772612]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 - **Ripple No. 25**
 
-![](./images/sfla_ripple_25.png)
+Shuffled Frog Leaping Algorithm with function Ripple 25 and 20 runs
+|                   |   Promedio |   Mediana |   Desv. Est. |
+|:------------------|-----------:|----------:|-------------:|
+| Duración          |  7.67244   | 5.67857   |    4.92076   |
+| Error c.r. Mínimo |  0.0675795 | 0.0827661 |    0.0563752 |
+| Error c.r. Óptimo |  0.142528  | 0.199435  |    0.107776  |
 
 - **Schaffer No. 1**
 
-![](./images/sfla_schaffer_1.png)
+Shuffled Frog Leaping Algorithm with function Schaffer 1 and 20 runs
+|                   |    Promedio |     Mediana |   Desv. Est. |
+|:------------------|------------:|------------:|-------------:|
+| Duración          | 1.78227     | 1.54979     |  0.673887    |
+| Error c.r. Mínimo | 1.34446e-10 | 0           |  5.81081e-10 |
+| Error c.r. Óptimo | 0.00417204  | 0.000514606 |  0.0105829   |
 
 - **Schaffer No. 2**
 
-![](./images/sfla_schaffer_2.png)
+Shuffled Frog Leaping Algorithm with function Schaffer 2 and 20 runs
+|                   |    Promedio |     Mediana |   Desv. Est. |
+|:------------------|------------:|------------:|-------------:|
+| Duración          | 2.07619     | 1.76073     |  0.86761     |
+| Error c.r. Mínimo | 3.4972e-16  | 0           |  9.90699e-16 |
+| Error c.r. Óptimo | 0.000566035 | 0.000476457 |  0.000382822 |
+
+Como se puede observar por las estadísticas la función Ripple No 25 fue en la peor comportamiento tuvo el algoritmo. 
 
 ## Algoritmo Genético: Differential Evolution (DE)
 
@@ -91,7 +176,6 @@ Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del [GA 
 
 ![](./images/ga_schaffer_2.png)
 
-**Nota**: Dado que la documentación carece del punto óptimo para **Mishra No. 7** (depende de los parámetros de la función -D, N-), decidimos en este caso computar el punto óptimo promedio, mediana y desviación estándar, respectivamente.
 
 El algoritmo de Simulated Annealing es una técnica de optimización inspirada en el proceso de enfriamiento de metales fundidos. El cual funciona de la siguiente manera.
 

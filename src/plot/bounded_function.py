@@ -1,3 +1,4 @@
+import math
 from typing import Callable
 import numpy as np
 
@@ -135,5 +136,10 @@ booth = BoundedFunction(
 def _bukin(x1, x2):
     return 100 * np.sqrt(abs(x2 - 0.01 * x1**2)) + 0.01 * abs(x1 + 10)
 
+def _mishra_7(x1, x2):
+    N = 5
+    return ( x1*x2 - math.factorial(N))**2
+
+mishra_7 = BoundedFunction("Mishra 7", _mishra_7, (-10, 10), (-10, 10), ((0, 1), 0))
 
 bukin = BoundedFunction("Bukin", _bukin, (-15, -5), (-3, 3), ((-10, 1), 0))
