@@ -15,9 +15,9 @@ from plot.gradient_descent import GradientDescent
 from plot.particle_swarm import ParticleSwarm
 from plot.sfla import SFLA
 from plot.simulated_annealing import SimulatedAnnealing
-
+from plot.genetic_alg_interfaz import Genetic_Algorithm
 """
 call this function passing an Algoritm and a Function to Test.
 """
 
-one_plot([Bat(50), ParticleSwarm(50)], bukin)
+one_plot([Genetic_Algorithm()], booth)
