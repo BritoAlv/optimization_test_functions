@@ -5,14 +5,16 @@ from plot.bounded_function import (
     scahffer3,
     ackley,
     beale,
+    schaffer1,
     schaffer2,
     ripple25,
     booth,
-    bukin,
+    bukin
 )
 from plot.gradient_descent import GradientDescent
 from plot.particle_swarm import ParticleSwarm
 from plot.sfla import SFLA
+from plot.simulated_annealing import SimulatedAnnealing
 
 """
 call this function passing an Algoritm and a Function to Test.
