@@ -1,3 +1,5 @@
+![](./p.png)
+
 # Algoritmos:
 
 Para visualizar distintos algoritmos y obtener estadísticas creamos una interfaz *Alg*, sobre esta implementamos nuestros algoritmos, para ejecutar el proyecto en la carpeta plot: 
