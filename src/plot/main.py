@@ -9,15 +9,21 @@ from plot.bounded_function import (
     schaffer2,
     ripple25,
     booth,
-    bukin
+    bukin,
 )
 from plot.gradient_descent import GradientDescent
 from plot.particle_swarm import ParticleSwarm
 from plot.sfla import SFLA
 from plot.simulated_annealing import SimulatedAnnealing
 from plot.genetic_alg_interfaz import Genetic_Algorithm
+
 """
 call this function passing an Algoritm and a Function to Test.
 """
 
-one_plot([Genetic_Algorithm(), ParticleSwarm(10)], booth)
+one_plot([
+    Genetic_Algorithm(), 
+    ParticleSwarm(10), 
+    GradientDescent(40),
+    Bat(20),
+    SFLA("Frog",booth.f, 10, 10, 2, 6,6, 100, bounds=(-100, 100))], booth)
