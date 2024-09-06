@@ -49,3 +49,43 @@ Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del SFLA
 ![](./images/sfla_schaffer_2.png)
 
 **Nota**: Dado que la documentación carece del punto óptimo para **Mishra No. 7** (depende de los parámetros de la función -D, N-), decidimos en este caso computar el punto óptimo promedio, mediana y desviación estándar, respectivamente.
+
+## Algoritmo Genético: Differential Evolution (DE)
+
+Differential Evolution (DE) es un algoritmo de optimización evolutivo, que pertenece a la misma familia de algoritmos que los Algoritmos Genéticos (GA). Se utiliza generalmente para funciones multidimensionales, donde el objetivo es encontrar el mínimo (o máximo) de una función objetivo. DE no utiliza el gradiente del problema que se optimiza, lo que significa que no requiere que el problema de optimización sea diferenciable.
+
+El funcionamiento de este algoritmo procede de la siguiente forma: Comienza generando una población inicial de soluciones candidatas. Estas soluciones son vectores aleatorios generados dentro de los límites especificados para cada variable del problema. Cada individuo en la población representa una posible solución al problema. ***DE*** introduce la variación mediante una operación llamada mutación. Para cada vector de la población, se seleccionan aleatoriamente tres individuos diferentes. Se crea un nuevo vector (mutante) sumando la diferencia entre dos de estos vectores multiplicada por un factor de escalamiento (F) al tercero.
+
+   $Mutante = Individuo_1 + F × (Individuo_2 − Individuo_3)$
+
+
+   Después de la mutación, DE realiza un cruce entre el vector original y el vector mutante para crear un nuevo vector (trial vector). Se decide, para cada componente del vector, si se toma el valor del vector original o del mutante, basándose en una probabilidad predefinida (CR).
+
+   $Trial Vector_i = { Mutante_i si rand(0,1) ≤ CR Individuo_i si rand(0,1) > CR }$
+
+
+   Finalmente, se compara el valor de la función objetivo del nuevo vector generado con el del vector original. Si el nuevo vector tiene un valor de función objetivo mejor (menor para un problema de minimización), reemplaza al vector original en la población.
+
+  $Población_{i+1} = { Trial Vector si f(Trial Vector) ≤ f(Individuo) Individuo en otro caso }$
+
+Estos pasos se repiten durante varias iteraciones hasta que se cumple algún criterio de parada, como alcanzar un número máximo de iteraciones o una mejora mínima en la solución.
+
+Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del [GA (Differential Evolution)](../src/notes/notes_ga.ipynb) sobre las funciones de prueba. Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
+
+- **Mishra No. 7**
+
+![](./images/ga_mishra_7.png)
+
+- **Ripple No. 25**
+
+![](./images/ga_ripple_25.png)
+
+- **Schaffer No. 1**
+
+![](./images/ga_schaffer_1.png)
+
+- **Schaffer No. 2**
+
+![](./images/ga_schaffer_2.png)
+
+**Nota**: Dado que la documentación carece del punto óptimo para **Mishra No. 7** (depende de los parámetros de la función -D, N-), decidimos en este caso computar el punto óptimo promedio, mediana y desviación estándar, respectivamente.
