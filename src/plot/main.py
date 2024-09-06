@@ -20,5 +20,4 @@ from plot.simulated_annealing import SimulatedAnnealing
 call this function passing an Algoritm and a Function to Test.
 """
 
-# one_plot([Bat(50), ParticleSwarm(50)], bukin)
-one_plot([SimulatedAnnealing()], schaffer2)
+one_plot([Bat(50), ParticleSwarm(50)], bukin)

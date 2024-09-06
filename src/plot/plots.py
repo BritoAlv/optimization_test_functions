@@ -46,9 +46,6 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
             scatters[i].set_offsets(scatter_data.T)
             alg.log_state(bf)
 
-    while(True):
-        update_scatter()
-
     # Button callback function
     def button_callback(event):
         update_scatter()
