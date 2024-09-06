@@ -38,6 +38,18 @@ scahffer3 = BoundedFunction(
     "Scahffer3", _ch, (-2, 2), (-2, 2), ((0, 1.253115), 0.00156685)
 )
 
+def _rosenbrock(x1, x2, a = 1, b = 10):
+    return (a-x1)**2 + b*(x2 - x1**2)**2
+
+def _rosenbreck_gradient_x(x1, x2, a= 1, b = 10):
+    return 2*(x1-a) - 4*b*x1*(x2-x1**2)
+
+def _rosenbreck_gradient_y(x1, x2, a= 1, b = 10):
+    return 2*b*(x2-x1**2)
+
+
+rosenbrock = BoundedFunction("Rosenbrock", _rosenbrock, (-2, 2), (-2, 2), ((1, 1), 0), gradient=(_rosenbreck_gradient_x, _rosenbreck_gradient_y))
+
 rotated_elipse2 = BoundedFunction(
     "Rotated Elipse 2",
     lambda x, y: x**2 - x * y + y**2,
@@ -72,7 +84,7 @@ beale = BoundedFunction("Beale", _beale, (-4.5, 4.5), (-4.5, 4.5), ((3, 0.5), 0)
 def schaffer_no_1(x1, x2):
     return 0.5 + ((np.sin((x1**2 + x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
 
-schaffer1 = BoundedFunction("Schaffer No. 1", schaffer_no_1, (-100, 100), (-100, 100), ((0, 0), 0))
+schaffer1 = BoundedFunction("Schaffer No. 1", schaffer_no_1, (-100, 100), (-100, 100), ((0, 0), 0), gradient=())
 
 def schaffer_no_2(x1, x2):
     return 0.5 + ((np.sin((x1**2 - x2**2) ** 2)) ** 2 - 0.5) / (
