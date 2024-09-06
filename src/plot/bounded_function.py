@@ -75,9 +75,6 @@ def schaffer_no_1(x1, x2):
 schaffer1 = BoundedFunction("Schaffer No. 1", schaffer_no_1, (-100, 100), (-100, 100), ((0, 0), 0))
 
 def schaffer_no_2(x1, x2):
-    return 0.5 + ((np.sin((x1**2 - x2**2)**2))**2 - 0.5) / (1 + 0.001 * ((x1**2 + x2**2)**2))
-
-def schaffer_no_2(x1, x2):
     return 0.5 + ((np.sin((x1**2 - x2**2) ** 2)) ** 2 - 0.5) / (
         1 + 0.001 * ((x1**2 + x2**2) ** 2)
     )

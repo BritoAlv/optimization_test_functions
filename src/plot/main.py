@@ -20,4 +20,4 @@ from plot.genetic_alg_interfaz import Genetic_Algorithm
 call this function passing an Algoritm and a Function to Test.
 """
 
-one_plot([Genetic_Algorithm()], booth)
+one_plot([Genetic_Algorithm(), ParticleSwarm(10)], booth)

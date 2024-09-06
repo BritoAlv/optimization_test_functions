@@ -59,5 +59,3 @@ class SimulatedAnnealing(Alg):
         self.best_solution = x.copy() 
         self.x = x.copy()
         self.current_solution = x.copy()
-
- 

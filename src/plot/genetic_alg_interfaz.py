@@ -18,7 +18,7 @@ class Genetic_Algorithm(Alg):
         self.fitness = None
 
     def mutate(self, population, F):
-        num_individuals = len(self.population)
+        num_individuals = self.pop_size
         dimensions = 2
         mutants = np.zeros_like(population)
 
@@ -34,7 +34,7 @@ class Genetic_Algorithm(Alg):
         return mutants
 
     def crossover(self, population, mutants, CR):
-        num_individuals = len(self.population)
+        num_individuals = self.pop_size
         dimensions = 2
         trials = []
 

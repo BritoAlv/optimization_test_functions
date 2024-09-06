@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 from matplotlib.animation import FuncAnimation
 from plot.bounded_function import BoundedFunction
+import matplotlib.patches as mpatches
 from plot.alg import Alg
 
 
@@ -33,9 +34,13 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
     ax.set_ylabel("Y-axis")
     colorbar = plt.colorbar(contour, ax=ax)
     colorbar.set_label("Function Value")
-    """
-    Pending to implement add a legend to this.
-    """
+
+    legend_handles = []
+    for i, color in enumerate(colours):
+        patch = mpatches.Patch(color=color, label=f"{algs[i].name}")
+        legend_handles.append(patch)
+
+    plt.legend(handles=legend_handles, loc="upper left").set_draggable(True)
 
     # Function to update scatter data
     def update_scatter():

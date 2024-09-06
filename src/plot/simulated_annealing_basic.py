@@ -105,4 +105,3 @@ print("\nEstadísticas finales:")
 print(f"Duración media total: {total_duration:.4f} segundos")
 print(f"Error absoluto promedio respecto al mínimo real: {avg_abs_min_error:.6f}")
 print(f"Distancia euclidiana promedio respecto al punto óptimo real: {avg_dist_min_error:.6f}")
- 
