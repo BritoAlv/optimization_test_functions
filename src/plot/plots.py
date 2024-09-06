@@ -25,10 +25,14 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
         figsize= (10, 10)
     )
     contour = ax.contourf(X, Y, Z, levels=10, cmap="plasma")
-    colours = random.sample(["b", "g", "r", "c", "m", "y", "k", "w"], k=len(algs))
+    colours = random.sample(["b", "g", "r", "c", "m", "y", "k" ], k=len(algs))
     scatters = [
         ax.scatter([], [], color=colours[i], s=10, zorder=10) for i in range(len(algs))
     ]
+    scatters.append(
+        ax.scatter([bf.glob_min[0][0]], [bf.glob_min[0][1]], color="w", s=40, zorder=10, marker = "x")
+    )
+
     ax.set_title(f"Interactive Plot of Algorithms with Function {bf.name}")
     ax.set_xlabel("X-axis")
     ax.set_ylabel("Y-axis")
@@ -55,7 +59,7 @@ def one_plot(algs: list[Alg], bf: BoundedFunction):
     def button_callback(event):
         update_scatter()
         fig.canvas.draw_idle()
-
+    
     # Add button widget
     ax_button = plt.axes([0.7, 0.05, 0.2, 0.075])
     button = Button(ax_button, "Update Scatter")
