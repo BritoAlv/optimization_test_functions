@@ -53,6 +53,8 @@ Particle Swarm Optimization with function Bukin and 100 runs
 
 ![](./images/pso_buk.png)
 
+Para realizar las estadísticas, establecimos como criterio de parada que el valor obtenido en la iteración sea lo suficientemente cercano a el promedio de los valores obtenidos en las últimas $30$ iteraciones, comprobar esta métrica es $0(1)$ y no afecta por tanto en el tiempo de la duración del algoritmo.
+
 #### Shuffled Frog Leaping Algorithm (*SFLA*)
 
 El Shuffled Frog Leaping Algorithm fue originalmente desarrollado para resolver problemas combinatoriales de optimización. El SFLA es una búsqueda cooperativa poblacional inspirado en meméticas de la naturaleza. El algoritmo contiene elementos de búsqueda local e intercambio de información global. Este consiste en una población virtual interactiva de ranas que es particionado en diferentes "memeplexes". Las ranas virtuales actúan como huéspedes o transportadores de los memes; donde un meme no es más que una unidad cultural de evolución (en nuestro caso, son vectores reales). El algoritmo realiza de forma simultánea e independiente una búsqueda local en cada memeplex (una característica que combina perfectamente con el paralelismo, utilizado en nuestra implementación). La búsqueda local es completada usando un método similar al "particle swarm" que enfatiza en la localidad. Para asegurar la exploración global, la ranas virtuales son periódicamente mezcladas y reorganizadas en nuevos memeplexes, una técnica similar a la mezcla utilizada en algoritmos evolutivos complejos. En adición, para proveer de una oportunidad para la generación aleatoria, ranas aleatorias son creadas y sustituidas en la población.
@@ -136,7 +138,7 @@ Shuffled Frog Leaping Algorithm with function Schaffer 2 and 20 runs
 | Error c.r. Mínimo | 3.4972e-16  | 0           |  9.90699e-16 |
 | Error c.r. Óptimo | 0.000566035 | 0.000476457 |  0.000382822 |
 
-Como se puede observar por las estadísticas la función Ripple No 25 fue en la peor comportamiento tuvo el algoritmo. 
+Como se puede observar por las estadísticas la función Ripple No 25 fue en la peor comportamiento tuvo el algoritmo. La duración para converger de este algoritmo es bastante comparada con los restantes algoritmos. 
 
 ## Algoritmo Genético: Differential Evolution (DE)
 
@@ -149,37 +151,224 @@ El funcionamiento de este algoritmo procede de la siguiente forma: Comienza gene
 
    Después de la mutación, DE realiza un cruce entre el vector original y el vector mutante para crear un nuevo vector (trial vector). Se decide, para cada componente del vector, si se toma el valor del vector original o del mutante, basándose en una probabilidad predefinida (CR).
 
-   $Trial Vector_i = { Mutante_i si rand(0,1) ≤ CR Individuo_i si rand(0,1) > CR }$
+  $Trial Vector_i = 
+  \begin{cases}
+    Mutante_i & rand(0,1) \leq CR \\ 
+    Individuo_i & else
+  \end{cases}$
 
 
    Finalmente, se compara el valor de la función objetivo del nuevo vector generado con el del vector original. Si el nuevo vector tiene un valor de función objetivo mejor (menor para un problema de minimización), reemplaza al vector original en la población.
 
-  $Población_{i+1} = { Trial Vector si f(Trial Vector) ≤ f(Individuo) Individuo en otro caso }$
+  $ Población_{i+1} = 
+  \begin{cases}
+  TrialVector_i & f(TrialVector_i) \leq f(Individuo_i) \\
+  Individuo_i & else
+   \end{cases} $
 
 Estos pasos se repiten durante varias iteraciones hasta que se cumple algún criterio de parada, como alcanzar un número máximo de iteraciones o una mejora mínima en la solución.
 
-Los siguientes resultados fueron obtenidos tras realizar 20 ejecuciones del [GA (Differential Evolution)](../src/notes/notes_ga.ipynb) sobre las funciones de prueba. Las datos comprenden: *duración*, *error con respecto al mínimo real* (valor absoluto), *error con respecto al punto óptimo real* (distancia euclidiana).
+Análogamente a como se hizo con los dos algoritmos anteriores :
 
 - **Mishra No. 7**
 
-![](./images/ga_mishra_7.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Promedio</th>
+      <th>Mediana</th>
+      <th>Desv. Est.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Duración</th>
+      <td>0.511171</td>
+      <td>0.502379</td>
+      <td>0.157143</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Mínimo</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>Óptimo</th>
+      <td>[-3.564216959455066, -4.946098783910625]</td>
+      <td>[-3.9022491932996117, -3.8580251285997433]</td>
+      <td>[14.050918134707134, 18.83150083646881]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 - **Ripple No. 25**
 
-![](./images/ga_ripple_25.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Promedio</th>
+      <th>Mediana</th>
+      <th>Desv. Est.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Duración</th>
+      <td>0.003676</td>
+      <td>0.003758</td>
+      <td>0.001106</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Mínimo</th>
+      <td>0.370942</td>
+      <td>0.334613</td>
+      <td>0.259675</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Óptimo</th>
+      <td>0.223265</td>
+      <td>0.213952</td>
+      <td>0.174356</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 - **Schaffer No. 1**
 
-![](./images/ga_schaffer_1.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Promedio</th>
+      <th>Mediana</th>
+      <th>Desv. Est.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Duración</th>
+      <td>1.207910e-01</td>
+      <td>1.208919e-01</td>
+      <td>2.130545e-02</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Mínimo</th>
+      <td>3.014743e-09</td>
+      <td>2.015670e-09</td>
+      <td>3.223648e-09</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Óptimo</th>
+      <td>2.232652e-01</td>
+      <td>2.139516e-01</td>
+      <td>1.743564e-01</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 - **Schaffer No. 2**
 
-![](./images/ga_schaffer_2.png)
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-El algoritmo de Simulated Annealing es una técnica de optimización inspirada en el proceso de enfriamiento de metales fundidos. El cual funciona de la siguiente manera.
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Promedio</th>
+      <th>Mediana</th>
+      <th>Desv. Est.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Duración</th>
+      <td>1.046041e-01</td>
+      <td>1.047817e-01</td>
+      <td>1.936059e-02</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Mínimo</th>
+      <td>2.837139e-09</td>
+      <td>8.299219e-10</td>
+      <td>3.360508e-09</td>
+    </tr>
+    <tr>
+      <th>Error c.r. Óptimo</th>
+      <td>4.006819e-02</td>
+      <td>3.581660e-02</td>
+      <td>1.714624e-02</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+![](./images/gen_ripple.png)
+
+![](./images/gen_beale.png)
 
 ## Simulated Annealing:
+
+El algoritmo de Simulated Annealing es una técnica de optimización inspirada en el proceso de enfriamiento de metales fundidos. El cual funciona de la siguiente manera.
 
 ### Funcionamiento del Algoritmo
 
