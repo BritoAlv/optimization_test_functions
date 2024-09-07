@@ -22,8 +22,8 @@ call this function passing an Algoritm and a Function to Test.
 """
 
 one_plot([
+    SimulatedAnnealing(),
     Genetic_Algorithm(), 
     ParticleSwarm(10), 
-    GradientDescent(40),
     Bat(20),
-    SFLA("Frog",booth.f, 10, 10, 2, 6,6, 100, bounds=(-100, 100))], booth)
+    SFLA("Shuffled Frog Leaping Algorithm",bukin.f, 10, 10, 2, 6,6, 100, bounds=(-100, 100))], bukin)
