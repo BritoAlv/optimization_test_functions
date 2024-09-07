@@ -42,7 +42,7 @@ Particle Swarm Optimization with function Schaffer No. 1 and 100 runs
 
 ![](./images/pso_sc2.png)
 
-Podemos comprobar la eficacia de el algoritmo de Particle Swarm Optimization con la dos funciones anteriores dado que encontró el mínimo relativamente rápido y con desviación estándar baja, lo que significa estabilidad en el resultado. Sin embargo con la función Bukin no es capaz de encontrar el mínimo con la misma eficacia.
+Podemos comprobar la eficacia de el algoritmo de Particle Swarm Optimization con la dos funciones anteriores dado que encontró el mínimo relativamente rápido y con desviación estándar baja, lo que significa estabilidad en el resultado. Sin embargo con la función Bukin no es capaz de encontrar el mínimo con la misma eficacia. Al aumentar la dimensional del problema el algoritmo no posee muchos cambios ya que los valores de cada dimensión son actualizados utilizando la misma lógica.
 
 Particle Swarm Optimization with function Bukin and 100 runs
 |                   |   Promedio |   Mediana |   Desv. Est. |
@@ -54,6 +54,8 @@ Particle Swarm Optimization with function Bukin and 100 runs
 ![](./images/pso_buk.png)
 
 Para realizar las estadísticas, establecimos como criterio de parada que el valor obtenido en la iteración sea lo suficientemente cercano a el promedio de los valores obtenidos en las últimas $30$ iteraciones, comprobar esta métrica es $0(1)$ y no afecta por tanto en el tiempo de la duración del algoritmo.
+
+
 
 #### Shuffled Frog Leaping Algorithm (*SFLA*)
 
@@ -138,7 +140,7 @@ Shuffled Frog Leaping Algorithm with function Schaffer 2 and 20 runs
 | Error c.r. Mínimo | 3.4972e-16  | 0           |  9.90699e-16 |
 | Error c.r. Óptimo | 0.000566035 | 0.000476457 |  0.000382822 |
 
-Como se puede observar por las estadísticas la función Ripple No 25 fue en la peor comportamiento tuvo el algoritmo. La duración para converger de este algoritmo es bastante, más de segundo y medio, comparada con los restantes algoritmos. En los últimos dos casos la desviación estándar es baja por lo que posee estabilidad.
+Como se puede observar por las estadísticas la función Ripple No 25 fue en la peor comportamiento tuvo el algoritmo. La duración para converger de este algoritmo es bastante, más de segundo y medio, comparada con los restantes algoritmos. En los últimos dos casos la desviación estándar es baja por lo que posee estabilidad. En un caso donde la dimensión del problema crece es la función Mishra No 7, el algoritmo encontró el mínimo sin problemas. 
 
 ## Algoritmo Genético: Differential Evolution (DE)
 
@@ -366,7 +368,7 @@ Análogamente a como se hizo con los dos algoritmos anteriores :
 
 ![](./images/gen_beale.png)
 
-Como es posible comprobar en la imagen este algoritmo fue capaz de encontrar el mínimo en el caso de la función Ripple 25, con buenos resultados con respecto a rapidez y estabilidad en los tres parámetros que estamos comprobando. 
+Como es posible comprobar en la imagen este algoritmo fue capaz de encontrar el mínimo en el caso de la función Ripple 25, con buenos resultados con respecto a rapidez y estabilidad en los tres parámetros que estamos comprobando. Al aumentar la dimensión del problema, cada componente tiene la misma probabilidad  $CR$ de ser reemplazada por el algoritmo, o de mantener su valor actual. Esto puede proveer de más diversidad en la búsqueda de candidatos.
 
 ## Simulated Annealing:
 
@@ -416,10 +418,10 @@ Simulated Annealing Optimization with function Beale and 100 runs
 
 ## Valoración
 
-Los puntos óptimos encontrados varían significativamente entre ejecuciones, indicando que el algoritmo puede converger a diferentes soluciones óptimas dependiendo de la configuración inicial y las iteraciones realizadas.
+Los puntos óptimos encontrados varían significativamente entre ejecuciones, indicando que el algoritmo puede converger a diferentes soluciones óptimas dependiendo de la configuración inicial y las iteraciones realizadas. Esto es debido a que el algoritmo está altamente influenciado por la condición de probabilidad, es bueno explorando como se observa en el caso de la función Pickle pero converge muy lento, por lo que hallar el óptimo sería a través de un largo número de iteraciones.
 
 ### Conclusiones
 
-Pudimos comprobar y visualizar los métodos usados por estos algoritmos en su mayoría estocásticos para encontrar el mínimo global de una función, algunos resultan mejores que otros dependiendo de las funciones escogidas. Con la función Bukin apreciamos que tan díficil puede resultar encontrar este mínimo global.
+Pudimos comprobar y visualizar los métodos usados por estos algoritmos en su mayoría estocásticos para encontrar el mínimo global de una función, algunos resultan mejores que otros dependiendo de las funciones escogidas. Con la función Bukin apreciamos que tan difícil puede resultar encontrar este mínimo global. También comprobamos que tan sensitivo son los algoritmos con respecto a los parámetros iniciales, por ejemplo en el caso de *PSO* sus parámetros regulan que tan global o local es la búsqueda. 
 
 ![](./images/buk.png)
